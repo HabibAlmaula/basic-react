@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+import "./styles/App.css";
 import SearchBar from "./components/SearchBar";
 import FormInputNote from "./components/FormInputNote";
 import NoteContainer from "./components/NoteContainer";
@@ -8,21 +8,14 @@ import NoteContainer from "./components/NoteContainer";
 import { setDefaultOptions } from "date-fns";
 import { id } from "date-fns/locale";
 import HeaderApp from "./components/HeaderApp";
+import { getInitialData } from "./utils";
 
 function App() {
   // Set the default locale to Indonesian
   setDefaultOptions({ locale: id });
 
   //define notes state
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      title: "Babel",
-      body: "Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.",
-      archived: false,
-      createdAt: "2022-04-14T04:27:34.572Z",
-    },
-  ]);
+  const [notes, setNotes] = useState(getInitialData());
 
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
