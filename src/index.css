@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
 @layer base {
+  @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
   :root {
     @apply font-poppins leading-6 font-normal bg-emerald-950;
     font-synthesis: none;
