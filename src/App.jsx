@@ -4,7 +4,6 @@ import SearchBar from "./components/SearchBar";
 import FormInputNote from "./components/FormInputNote";
 import NoteContainer from "./components/NoteContainer";
 
-// App.js or index.js
 import { setDefaultOptions } from "date-fns";
 import { id } from "date-fns/locale";
 import HeaderApp from "./components/HeaderApp";
