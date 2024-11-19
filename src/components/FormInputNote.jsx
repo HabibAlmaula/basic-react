@@ -1,4 +1,5 @@
 import { Component } from "react";
+import AppButton from "./AppButton";
 
 class FormInputNote extends Component {
   constructor(props) {
@@ -19,6 +20,11 @@ class FormInputNote extends Component {
   };
 
   handleOnSave = () => {
+    //add validation
+    if (!this.state.title.trim() || !this.state.body.trim()) {
+      alert("Title and body are required");
+      return;
+    }
     this.props.onSave({ title: this.state.title, body: this.state.body });
     //clear the form
     this.setState({ title: "", body: "" });
@@ -44,12 +50,11 @@ class FormInputNote extends Component {
           value={this.state.body}
           onChange={(event) => this.setState({ body: event.target.value })}
         />
-        <button
-          className="self-end max-w-[100px] mt-5"
+        <AppButton
+          className={"self-end"}
+          label="Save"
           onClick={this.handleOnSave}
-        >
-          Save{" "}
-        </button>
+        />
       </div>
     );
   }
