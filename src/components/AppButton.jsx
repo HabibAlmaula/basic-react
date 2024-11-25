@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function AppButton({ onClick, label, className }) {
   //handle onClick event of button
 
@@ -14,3 +16,9 @@ function AppButton({ onClick, label, className }) {
 }
 
 export default AppButton;
+
+AppButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  className: PropTypes.string,
+};

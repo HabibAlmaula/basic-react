@@ -3,6 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import NoteItem from "./NoteItem";
 import EmptyState from "./EmptyState";
+import PropTypes from "prop-types";
 
 class NoteContainer extends Component {
   constructor(props) {
@@ -68,3 +69,9 @@ class NoteContainer extends Component {
 }
 
 export default NoteContainer;
+
+NoteContainer.propTypes = {
+  notes: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+}

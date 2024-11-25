@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { format } from "date-fns";
+import PropTypes from "prop-types";
 
 class NoteItem extends Component {
   constructor(props) {
@@ -40,3 +41,12 @@ class NoteItem extends Component {
 }
 
 export default NoteItem;
+
+NoteItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  archived: PropTypes.bool.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+};
