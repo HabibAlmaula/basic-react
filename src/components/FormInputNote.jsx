@@ -2,6 +2,7 @@ import { Component } from "react";
 import AppButton from "./AppButton";
 import RichTextEditor from "./RichTextEditor";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 function FormInputNote({ onSave }) {
   const maxLength = 60;
@@ -53,3 +54,7 @@ function FormInputNote({ onSave }) {
 }
 
 export default FormInputNote;
+
+FormInputNote.propTypes = {
+  onSave: PropTypes.func.isRequired,
+};

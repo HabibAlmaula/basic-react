@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Nodata from "../assets/no-data.svg";
+import PropTypes from "prop-types";
 
 class EmptyState extends Component {
   constructor(props) {
@@ -20,3 +21,7 @@ class EmptyState extends Component {
 }
 
 export default EmptyState;
+
+EmptyState.propTypes = {
+  message: PropTypes.string,
+};

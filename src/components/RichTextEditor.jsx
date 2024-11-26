@@ -2,8 +2,9 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export default function RichTextEditor({ value, onChange, formatedValue }) {
-  const [textareaHeight, setTextareaHeight] = useState('auto');
+import PropTypes from 'prop-types';
+
+export default function RichTextEditor({ value, onChange }) {
 
   const handleOnChange = (content) => {
     onChange({ plainText: content });
@@ -140,3 +141,8 @@ export default function RichTextEditor({ value, onChange, formatedValue }) {
     </div>
   );
 }
+
+RichTextEditor.propTypes = {
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    };
