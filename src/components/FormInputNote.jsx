@@ -1,63 +1,55 @@
 import { Component } from "react";
 import AppButton from "./AppButton";
+import RichTextEditor from "./RichTextEditor";
+import { useState } from "react";
 
-class FormInputNote extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      body: "",
-      maxLength: 60,
-    };
-  }
+function FormInputNote({ onSave }) {
+  const maxLength = 60;
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
 
-  handleOnchangeTitle = (event) => {
+  function handleOnchangeTitle(event) {
     const title = event.target.value;
-    if (title.length > this.state.maxLength) {
+    if (title.length > maxLength) {
       return;
     }
-    this.setState({ title });
-  };
+    setTitle(title);
+  }
 
-  handleOnSave = () => {
+  function handleOnChangeBody(value) {
+    const textBody = value.plainText;
+    console.log(textBody);
+    setBody(textBody);
+  }
+
+  function handleOnSave() {
     //add validation
-    if (!this.state.title.trim() || !this.state.body.trim()) {
+    if (!title.trim() || !body.trim()) {
       alert("Title and body are required");
       return;
     }
-    this.props.onSave({ title: this.state.title, body: this.state.body });
+    onSave({ title, body });
     //clear the form
-    this.setState({ title: "", body: "" });
-  };
-
-  render() {
-    return (
-      <div className="flex flex-col">
-        <input
-          type="text"
-          placeholder="Title"
-          value={this.state.title}
-          onChange={this.handleOnchangeTitle}
-          className="p-2 rounded-md"
-        />
-        <p className="text-lg font-semibold self-end mb-2">
-          {this.state.title.length}/{this.state.maxLength}
-        </p>
-
-        <textarea
-          className="p-2 mb-2 min-h-[200px] rounded-md"
-          placeholder="Content"
-          value={this.state.body}
-          onChange={(event) => this.setState({ body: event.target.value })}
-        />
-        <AppButton
-          className={"self-end"}
-          label="Save"
-          onClick={this.handleOnSave}
-        />
-      </div>
-    );
+    setTitle("");
+    setBody("");
   }
+
+  return (
+    <div className="flex flex-col">
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={handleOnchangeTitle}
+        className="p-2 rounded-md"
+      />
+      <p className="text-lg font-semibold self-end mb-2">
+        {title.length}/{maxLength}
+      </p>
+      <RichTextEditor onChange={handleOnChangeBody} value={body} />
+      <AppButton className={"self-end"} label="Save" onClick={handleOnSave} />
+    </div>
+  );
 }
 
 export default FormInputNote;
