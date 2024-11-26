@@ -3,17 +3,18 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import NoteItem from "./NoteItem";
 import EmptyState from "./EmptyState";
+import PropTypes from "prop-types";
 
 class NoteContainer extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const { notes, onDelete, onArchive } = this.props;
+    const { notes, onDelete, onArchive, onUnArchive } = this.props;
 
     //separate active notes and archived notes
-    const activeNotes = notes.filter((note) => !note.archived);
-    const archivedNotes = notes.filter((note) => note.archived);
+    let activeNotes = notes.filter((note) => !note.archived);
+    let archivedNotes = notes.filter((note) => note.archived);
 
     return (
       <div>
@@ -29,6 +30,7 @@ class NoteContainer extends Component {
                 {activeNotes.map((note) => (
                   <NoteItem
                     key={note.id}
+                    id={note.id}
                     title={note.title}
                     date={note.createdAt}
                     body={note.body}
@@ -48,12 +50,13 @@ class NoteContainer extends Component {
                 {archivedNotes.map((note) => (
                   <NoteItem
                     key={note.id}
+                    id={note.id}
                     title={note.title}
                     date={note.createdAt}
                     body={note.body}
                     archived={note.archived}
                     onDelete={() => onDelete(note.id)}
-                    onArchive={() => onArchive(note.id)}
+                    onUnarchive={() => onUnArchive(note.id)}
                   />
                 ))}
               </div>
@@ -68,3 +71,9 @@ class NoteContainer extends Component {
 }
 
 export default NoteContainer;
+
+NoteContainer.propTypes = {
+  notes: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+}
