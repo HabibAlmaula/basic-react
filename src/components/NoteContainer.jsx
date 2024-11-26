@@ -75,5 +75,6 @@ export default NoteContainer;
 NoteContainer.propTypes = {
   notes: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
+  onArchive: PropTypes.func,
+  onUnArchive: PropTypes.func,
 }
