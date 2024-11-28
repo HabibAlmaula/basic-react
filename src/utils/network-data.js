@@ -83,9 +83,10 @@ async function addNote({ title, body }) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
+    toast.error(responseJson.message);
     return { error: true, data: null };
   }
-
+  toast.success("Note added successfully");
   return { error: false, data: responseJson.data };
 }
 
@@ -130,9 +131,10 @@ async function archiveNote(id) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
+    toast.error(responseJson.message);
     return { error: true, data: null };
   }
-
+  toast.success("Note archived successfully");
   return { error: false, data: responseJson.data };
 }
 
@@ -144,9 +146,10 @@ async function unarchiveNote(id) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
+    toast.error(responseJson.message);
     return { error: true, data: null };
   }
-
+  toast.success("Note unarchived successfully");
   return { error: false, data: responseJson.data };
 }
 
@@ -158,9 +161,10 @@ async function deleteNote(id) {
   const responseJson = await response.json();
 
   if (responseJson.status !== "success") {
+    toast.error(responseJson.message);
     return { error: true, data: null };
   }
-
+  toast.success("Note deleted successfully");
   return { error: false, data: responseJson.data };
 }
 

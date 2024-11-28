@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-function AppButton({ onClick, label, className }) {
+function AppButton({ onClick, label, className, disabled = false, isLoading }) {
   //handle onClick event of button
 
   return (
@@ -8,8 +9,16 @@ function AppButton({ onClick, label, className }) {
       <button
         className={`p-2 rounded-md ${className} min-w-[100px] mt-5 mb-2`}
         onClick={onClick}
+        disabled={disabled || isLoading}
       >
-        {label || "Button"}
+        {isLoading ? (
+          <>
+            Loading...
+            <AiOutlineLoading3Quarters className="animate-spin object-contain" />
+          </>
+        ) : (
+          label
+        )}
       </button>
     </>
   );

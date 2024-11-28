@@ -16,30 +16,9 @@ function Home() {
 
   const [filteredNotes, setFilteredNotes] = useState([]);
 
-  const handleDelete = (id) => {
-    deleteNote(id);
-    setNotes(getAllNotes());
-  };
-
-  const handleArchive = (id) => {
-    archiveNote(id);
-    setNotes(getAllNotes());
-  };
-
-  const handleUnarchive = (id) => {
-    unarchiveNote(id);
-    setNotes(getAllNotes());
-  };
-
   const handleSearchChange = (keyword) => {
     // Update the searchKeyword state
     setSearchParams({ keyword });
-    // search the notes title or body
-    const tempFilteredNotes = notes.filter((note) =>
-      note.title.toLowerCase().includes(keyword.toLowerCase())
-    );
-    // Update the filteredNotes state
-    setFilteredNotes(tempFilteredNotes);
   };
   return (
     <>
@@ -58,14 +37,7 @@ function Home() {
           }
         />
       </div>
-      <NoteContainer
-        notes={
-          (searchParams.get("keyword") ?? "").trim() ? filteredNotes : notes
-        }
-        onDelete={handleDelete}
-        onArchive={handleArchive}
-        onUnArchive={handleUnarchive}
-      />
+      <NoteContainer searchParams={searchParams} />
     </>
   );
 }

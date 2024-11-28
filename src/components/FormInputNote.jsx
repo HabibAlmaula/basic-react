@@ -4,7 +4,7 @@ import RichTextEditor from "./RichTextEditor";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-function FormInputNote({ onSave }) {
+function FormInputNote({ onSave, isLoading }) {
   const maxLength = 60;
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -42,12 +42,22 @@ function FormInputNote({ onSave }) {
         value={title}
         onChange={handleOnchangeTitle}
         className="p-2 rounded-md"
+        disabled={isLoading}
       />
       <p className="text-lg font-semibold self-end mb-2">
         {title.length}/{maxLength}
       </p>
-      <RichTextEditor onChange={handleOnChangeBody} value={body} />
-      <AppButton className={"self-end"} label="Save" onClick={handleOnSave} />
+      <RichTextEditor
+        onChange={handleOnChangeBody}
+        value={body}
+        readOnly={isLoading}
+      />
+      <AppButton
+        className={"self-end"}
+        label="Save"
+        onClick={handleOnSave}
+        disabled={isLoading}
+      />
     </div>
   );
 }

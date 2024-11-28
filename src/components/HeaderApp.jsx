@@ -3,12 +3,16 @@ import { useAuth } from "../hooks/AuthProvider";
 import { TbLogout } from "react-icons/tb";
 import { home } from "../routes/routes";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import ConfirmationDialog from "./ConfirmationDialog";
+import { useState } from "react";
 
 function HeaderApp() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout, authed } = useAuth();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleLogout = async () => {
+    setDialogOpen(false);
     await logout();
   };
 
@@ -33,11 +37,17 @@ function HeaderApp() {
           )}
           <TbLogout
             className="text-2xl font-semibold cursor-pointer transition-all duration-200 hover:text-red-600 hover:scale-105"
-            onClick={handleLogout}
+            onClick={() => setDialogOpen(true)}
           />
         </div>
       </div>
       <hr className="my-5" />
+      <ConfirmationDialog
+        isOpen={dialogOpen}
+        message={"Are you sure you want to logout?"}
+        onClose={() => setDialogOpen(false)}
+        onConfirm={() => handleLogout()}
+      />
     </>
   );
 }

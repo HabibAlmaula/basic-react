@@ -1,16 +1,21 @@
+import useSWR from "swr";
 import { useNavigate, useLocation } from "react-router-dom";
 import FormInputNote from "../components/FormInputNote";
 import HeaderApp from "../components/HeaderApp";
 
-import { addNote } from "../utils";
+import { addNote } from "../utils/network-data";
+import { home } from "../routes/routes";
 
 function AddNote() {
   const navigate = useNavigate();
 
-  const handleOnSave = (note) => {
-    addNote(note);
-    navigate("/");
+  const handleOnSave = async (note) => {
+    const { error } = await addNote(note);
+    if (!error) {
+      navigate(home);
+    }
   };
+
   return (
     <>
       <HeaderApp />
