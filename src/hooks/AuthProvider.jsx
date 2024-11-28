@@ -1,24 +1,24 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import {
   getAccessToken,
   getUserLogged,
   login as networkLogin,
   putAccessToken,
 } from "../utils/network-data";
-import { useContext } from "react";
+import { home, login as loginRoute } from "../routes/routes";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [authed, setAuthed] = useState(!!getAccessToken());
 
   useEffect(() => {
     const initializeAuth = async () => {
-      const token = getAccessToken();
-
-      if (token) {
+      if (authed) {
         const { error, data } = await getUserLogged();
         if (!error) {
           setUser(data);
@@ -27,12 +27,11 @@ export const AuthProvider = ({ children }) => {
 
       setIsLoading(false);
     };
-
     initializeAuth();
   }, []);
 
   const login = async ({ email, password }) => {
-    const { error, data } = await networkLogin({ email, password });
+    const { error, data, message } = await networkLogin({ email, password });
 
     if (!error) {
       putAccessToken(data.accessToken);
@@ -43,17 +42,18 @@ export const AuthProvider = ({ children }) => {
       if (!userResult.error) {
         setUser(userResult.data);
       }
-
+      navigate(home);
       return { success: true };
     }
 
-    return { success: false, message: data.message };
+    return { success: false, message: message };
   };
 
   const logout = () => {
     putAccessToken(null);
     setUser(null);
     setAuthed(false);
+    navigate(loginRoute);
   };
 
   if (isLoading) {

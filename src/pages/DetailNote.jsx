@@ -10,7 +10,6 @@ function DetailNote() {
   const { id } = useParams();
   const [note] = useState(getNote(id));
 
-  console.log(`DetailNote: ${JSON.stringify(note)}`);
 
   return (
     <div className="w-full">

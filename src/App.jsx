@@ -3,6 +3,7 @@ import { setDefaultOptions } from "date-fns";
 import { id } from "date-fns/locale";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import NotFound from "./pages/base/NotFound";
 import AddNote from "./pages/AddNote";
@@ -19,17 +20,34 @@ import {
 } from "./routes/routes";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import { AppToast } from "./components/AppToast";
+import { AuthGuard } from "./routes/AuthGuard";
 
 function App() {
   // Set the default locale to Indonesian
   setDefaultOptions({ locale: id });
   return (
     <>
+      <AppToast />
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path={login} element={<Login />} />
-            <Route path={register} element={<Register />} />
+            <Route
+              path={login}
+              element={
+                <AuthGuard>
+                  <Login />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path={register}
+              element={
+                <AuthGuard>
+                  <Register />
+                </AuthGuard>
+              }
+            />
             <Route element={<RouteGuard />}>
               <Route path={home} element={<Home />} />
               <Route path={addNote} element={<AddNote />} />

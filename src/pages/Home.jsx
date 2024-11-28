@@ -40,11 +40,6 @@ function Home() {
     );
     // Update the filteredNotes state
     setFilteredNotes(tempFilteredNotes);
-    console.log(
-      `Search keyword: ${keyword} || Filtered notes: ${JSON.stringify(
-        tempFilteredNotes
-      )}`
-    );
   };
   return (
     <>

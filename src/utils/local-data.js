@@ -73,7 +73,6 @@ function deleteNote(id) {
 }
 
 function archiveNote(id) {
-  console.log('archiveNote', id);
   notes = notes.map((note) => {
     if (note.id === id) {
       return { ...note, archived: true };

@@ -19,7 +19,6 @@ function FormInputNote({ onSave }) {
 
   function handleOnChangeBody(value) {
     const textBody = value.plainText;
-    console.log(textBody);
     setBody(textBody);
   }
 
