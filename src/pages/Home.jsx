@@ -7,14 +7,12 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AppButton from "../components/AppButton";
 
+import { addNote } from "../routes/routes";
+
 function Home() {
   const navigate = useNavigate();
 
-  //define notes state
-  const [notes, setNotes] = useState(getAllNotes());
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const [filteredNotes, setFilteredNotes] = useState([]);
 
   const handleSearchChange = (keyword) => {
     // Update the searchKeyword state
@@ -25,19 +23,9 @@ function Home() {
       <HeaderApp />
       <div className="flex flex-row justify-between">
         <SearchBar onSearchChange={handleSearchChange} />
-        <AppButton
-          label="Add Note"
-          onClick={() =>
-            navigate(
-              "/add-note"
-              //   {
-              //   state: { lastNoteId: notes[notes.length - 1].id },
-              // }
-            )
-          }
-        />
+        <AppButton label="Add Note" onClick={() => navigate(addNote)} />
       </div>
-      <NoteContainer searchParams={searchParams} />
+      <NoteContainer searchKeyword={searchParams.get("keyword") ?? ""} />
     </>
   );
 }

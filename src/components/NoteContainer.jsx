@@ -13,12 +13,13 @@ import {
   unarchiveNote,
 } from "../utils/network-data";
 import { NoteLoader } from "./NoteLoader";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useState } from "react";
 
-const NoteContainer = ({ searchParams }) => {
+const NoteContainer = ({ searchKeyword }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentAction, setCurrentAction] = useState(null);
+  const [currentActionType, setCurrentActionType] = useState(null); // New state for tracking action type
   const [currentNoteId, setCurrentNoteId] = useState(null);
   const [isLoadingAction, setIsLoadingAction] = useState(false);
 
@@ -43,28 +44,52 @@ const NoteContainer = ({ searchParams }) => {
     revalidateOnMount: false,
   });
 
+  // Filter notes based on search keyword
+  const filteredActiveNotes = useMemo(() => {
+    if (!activeNotes?.data) return [];
+    if (!searchKeyword) return activeNotes.data;
+    
+    return activeNotes.data.filter((note) =>
+      note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      note.body.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+  }, [activeNotes, searchKeyword]);
+
+  const filteredArchivedNotes = useMemo(() => {
+    if (!archivedNotes?.data) return [];
+    if (!searchKeyword) return archivedNotes.data;
+    
+    return archivedNotes.data.filter((note) =>
+      note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      note.body.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+  }, [archivedNotes, searchKeyword]);
+
   const handleTabSelect = (index) => {
     if (index === 0) {
-      mutateActive(); // fetch active notes when the "Catatan Aktif" tab is selected
+      mutateActive();
     } else if (index === 1) {
-      mutateArchived(); // fetch archived notes when the "Arsip" tab is selected
+      mutateArchived();
     }
   };
 
   const onDelete = (noteId) => {
     setCurrentAction(() => () => deleteNoteAction(noteId));
+    setCurrentActionType('delete'); // Set action type
     setCurrentNoteId(noteId);
     setIsDialogOpen(true);
   };
 
   const onArchive = (noteId) => {
     setCurrentAction(() => () => archiveNoteAction(noteId));
+    setCurrentActionType('archive'); // Set action type
     setCurrentNoteId(noteId);
     setIsDialogOpen(true);
   };
 
   const onUnarchive = (noteId) => {
     setCurrentAction(() => () => unarchiveNoteAction(noteId));
+    setCurrentActionType('unarchive'); // Set action type
     setCurrentNoteId(noteId);
     setIsDialogOpen(true);
   };
@@ -73,27 +98,27 @@ const NoteContainer = ({ searchParams }) => {
     setIsLoadingAction(true);
     await deleteNote(noteId);
     setIsLoadingAction(false);
-    mutateActive(); // Update active notes after deleting
-    mutateArchived(); // Update archived notes in case it was archived
-    setIsDialogOpen(false); // Close dialog
+    mutateActive();
+    mutateArchived();
+    setIsDialogOpen(false);
   };
 
   const archiveNoteAction = async (noteId) => {
     setIsLoadingAction(true);
     await archiveNote(noteId);
     setIsLoadingAction(false);
-    mutateActive(); // Update active notes
-    mutateArchived(); // Update archived notes
-    setIsDialogOpen(false); // Close dialog
+    mutateActive();
+    mutateArchived();
+    setIsDialogOpen(false);
   };
 
   const unarchiveNoteAction = async (noteId) => {
     setIsLoadingAction(true);
     await unarchiveNote(noteId);
     setIsLoadingAction(false);
-    mutateActive(); // Update active notes
-    mutateArchived(); // Update archived notes
-    setIsDialogOpen(false); // Close dialog
+    mutateActive();
+    mutateArchived();
+    setIsDialogOpen(false);
   };
 
   useEffect(() => {
@@ -113,9 +138,9 @@ const NoteContainer = ({ searchParams }) => {
             <NoteLoader />
           ) : activeError ? (
             <div>Error loading notes</div>
-          ) : activeNotes && activeNotes.data.length > 0 ? (
+          ) : filteredActiveNotes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-10 pb-5 gap-y-5 place-items-center">
-              {activeNotes.data.map((note) => (
+              {filteredActiveNotes.map((note) => (
                 <NoteItem
                   key={note.id}
                   id={note.id}
@@ -129,7 +154,11 @@ const NoteContainer = ({ searchParams }) => {
               ))}
             </div>
           ) : (
-            <EmptyState message="Tidak ada catatan aktif yang tersedia" />
+            <EmptyState message={
+              searchKeyword 
+                ? `Tidak ada catatan yang cocok dengan "${searchKeyword}"`
+                : "Tidak ada catatan aktif yang tersedia"
+            } />
           )}
         </TabPanel>
 
@@ -138,9 +167,9 @@ const NoteContainer = ({ searchParams }) => {
             <NoteLoader />
           ) : archivedError ? (
             <div>Error loading notes</div>
-          ) : archivedNotes && archivedNotes.data.length > 0 ? (
+          ) : filteredArchivedNotes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-10 pb-5 gap-y-5 place-items-center">
-              {archivedNotes.data.map((note) => (
+              {filteredArchivedNotes.map((note) => (
                 <NoteItem
                   key={note.id}
                   id={note.id}
@@ -154,7 +183,11 @@ const NoteContainer = ({ searchParams }) => {
               ))}
             </div>
           ) : (
-            <EmptyState message="Tidak ada catatan yang diarsipkan" />
+            <EmptyState message={
+              searchKeyword 
+                ? `Tidak ada catatan yang cocok dengan "${searchKeyword}"`
+                : "Tidak ada catatan yang diarsipkan"
+            } />
           )}
         </TabPanel>
       </Tabs>
@@ -165,16 +198,14 @@ const NoteContainer = ({ searchParams }) => {
         onClose={() => setIsDialogOpen(false)}
         onConfirm={currentAction}
         isLoading={isLoadingAction}
-        message={`Are you sure you want to ${
-          currentAction === deleteNoteAction
-            ? "delete"
-            : currentAction === archiveNoteAction
-            ? "archive"
-            : "unarchive"
-        } this note?`}
+        message={`Are you sure you want to ${currentActionType} this note?`}
       />
     </div>
   );
+};
+
+NoteContainer.propTypes = {
+  searchKeyword: PropTypes.string.isRequired,
 };
 
 export default NoteContainer;
