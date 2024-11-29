@@ -22,41 +22,44 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { AppToast } from "./components/AppToast";
 import { AuthGuard } from "./routes/AuthGuard";
+import { ThemeProvider } from "./hooks/ThemeProvider";
 
 function App() {
   // Set the default locale to Indonesian
   setDefaultOptions({ locale: id });
   return (
     <>
-      <AppToast />
-      <Router>
-        <AuthProvider>
-          <Routes>
-            <Route
-              path={login}
-              element={
-                <AuthGuard>
-                  <Login />
-                </AuthGuard>
-              }
-            />
-            <Route
-              path={register}
-              element={
-                <AuthGuard>
-                  <Register />
-                </AuthGuard>
-              }
-            />
-            <Route element={<RouteGuard />}>
-              <Route path={home} element={<Home />} />
-              <Route path={addNote} element={<AddNote />} />
-              <Route path={detailNote} element={<DetailNote />} />
-            </Route>
-            <Route path={notFound} element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
-      </Router>
+      <ThemeProvider>
+        <AppToast />
+        <Router>
+          <AuthProvider>
+            <Routes>
+              <Route
+                path={login}
+                element={
+                  <AuthGuard>
+                    <Login />
+                  </AuthGuard>
+                }
+              />
+              <Route
+                path={register}
+                element={
+                  <AuthGuard>
+                    <Register />
+                  </AuthGuard>
+                }
+              />
+              <Route element={<RouteGuard />}>
+                <Route path={home} element={<Home />} />
+                <Route path={addNote} element={<AddNote />} />
+                <Route path={detailNote} element={<DetailNote />} />
+              </Route>
+              <Route path={notFound} element={<NotFound />} />
+            </Routes>
+          </AuthProvider>
+        </Router>
+      </ThemeProvider>
     </>
   );
 }

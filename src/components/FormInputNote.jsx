@@ -41,7 +41,7 @@ function FormInputNote({ onSave, isLoading }) {
         placeholder="Title"
         value={title}
         onChange={handleOnchangeTitle}
-        className="p-2 rounded-md"
+        className="p-2 rounded-md bg-slate-50 border border-x-neutral-200"
         disabled={isLoading}
       />
       <p className="text-lg font-semibold self-end mb-2">

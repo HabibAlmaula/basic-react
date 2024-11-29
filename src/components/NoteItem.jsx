@@ -6,9 +6,9 @@ function NoteItem({ id, title, date, body, archived, onDelete, onArchive, onUnar
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-lg text-left bg-slate-800 border border-neutral-400 max-w-[250px] max-h-[250px] min-h-[250px] min-w-[250px] flex flex-col">
+    <div className="rounded-lg text-left bg-slate-200 dark:bg-slate-800 border border-neutral-700 dark:border-neutral-400 max-w-[250px] max-h-[250px] min-h-[250px] min-w-[250px] flex flex-col">
       <div className="flex-grow px-5 py-2 cursor-pointer" onClick={() => navigate(`/detail/${id}`)}>
-        <h2 className="text-lg font-bold text-slate-300">{title}</h2>
+        <h2 className="text-lg font-bold text-slate-600 dark:text-slate-300">{title}</h2>
         <p className="text-sm text-slate-500 pb-3">
           {" "}
           {format(new Date(date), "EEEE, dd MMMM yyyy")}{" "}
@@ -20,14 +20,14 @@ function NoteItem({ id, title, date, body, archived, onDelete, onArchive, onUnar
       <div className="flex w-full">
         {/* delete button */}
         <div
-          className="flex-1 border text-red-800 py-2 cursor-pointer select-none hover:bg-red-600 transition-colors text-center rounded-bl-md"
+          className="flex-1 border border-neutral-700 text-red-800 py-2 cursor-pointer select-none hover:bg-red-600 transition-colors text-center rounded-bl-md"
           onClick={onDelete}
         >
           Delete
         </div>
         {/* archive button */}
         <div
-          className="flex-1 border text-amber-600 py-2 cursor-pointer select-none hover:bg-blue-600 transition-colors text-center rounded-br-md"
+          className="flex-1 border border-neutral-700 text-amber-600 py-2 cursor-pointer select-none hover:bg-blue-600 transition-colors text-center rounded-br-md"
           onClick={archived ? onUnarchive : onArchive}
         >
           {archived ? "Pindahkan" : "Arsipkan"}

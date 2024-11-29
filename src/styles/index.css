@@ -4,8 +4,20 @@
 
 @layer base {
   @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+  /* Move root styles that should change with theme to html and body */
+
+  /* Add this to your index.css if still needed */
+  html[data-theme="dark"] body {
+    @apply bg-zinc-900;
+  }
+
+  html[data-theme="light"] body {
+    @apply bg-white;
+  }
+
   :root {
-    @apply font-poppins leading-6 font-normal bg-emerald-950;
+    @apply font-poppins leading-6 font-normal;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -13,7 +25,7 @@
   }
 
   body {
-    @apply text-slate-400;
+    @apply text-slate-600 dark:text-slate-400 min-h-screen;
   }
 
   a {
@@ -21,35 +33,26 @@
   }
 
   a:hover {
-    @apply text-slate-800;
+    @apply text-slate-900 dark:text-slate-800;
   }
 
   h1 {
-    @apply text-amber-800 leading-tight;
+    @apply text-amber-600 dark:text-amber-800 leading-tight;
   }
 
   button {
-    @apply rounded-md border border-transparent py-2 px-4 text-lg font-medium bg-amber-900 text-amber-500 cursor-pointer transition-colors;
+    @apply rounded-md border border-transparent py-2 px-4 text-lg font-medium 
+           bg-amber-500 dark:bg-amber-900 
+           text-amber-900 dark:text-amber-500 
+           cursor-pointer transition-colors;
   }
 
   button:hover {
-    @apply border-amber-600;
+    @apply border-amber-700 dark:border-amber-600;
   }
 
   button:focus,
   button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
-  }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      @apply text-neutral-500;
-    }
-    a:hover {
-      color: #747bff; /* Custom color */
-    }
-    button {
-      @apply bg-amber-500;
-    }
   }
 }
