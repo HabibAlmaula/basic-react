@@ -48,20 +48,22 @@ const NoteContainer = ({ searchKeyword }) => {
   const filteredActiveNotes = useMemo(() => {
     if (!activeNotes?.data) return [];
     if (!searchKeyword) return activeNotes.data;
-    
-    return activeNotes.data.filter((note) =>
-      note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      note.body.toLowerCase().includes(searchKeyword.toLowerCase())
+
+    return activeNotes.data.filter(
+      (note) =>
+        note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+        note.body.toLowerCase().includes(searchKeyword.toLowerCase())
     );
   }, [activeNotes, searchKeyword]);
 
   const filteredArchivedNotes = useMemo(() => {
     if (!archivedNotes?.data) return [];
     if (!searchKeyword) return archivedNotes.data;
-    
-    return archivedNotes.data.filter((note) =>
-      note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      note.body.toLowerCase().includes(searchKeyword.toLowerCase())
+
+    return archivedNotes.data.filter(
+      (note) =>
+        note.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+        note.body.toLowerCase().includes(searchKeyword.toLowerCase())
     );
   }, [archivedNotes, searchKeyword]);
 
@@ -75,21 +77,21 @@ const NoteContainer = ({ searchKeyword }) => {
 
   const onDelete = (noteId) => {
     setCurrentAction(() => () => deleteNoteAction(noteId));
-    setCurrentActionType('delete'); // Set action type
+    setCurrentActionType("delete"); // Set action type
     setCurrentNoteId(noteId);
     setIsDialogOpen(true);
   };
 
   const onArchive = (noteId) => {
     setCurrentAction(() => () => archiveNoteAction(noteId));
-    setCurrentActionType('archive'); // Set action type
+    setCurrentActionType("archive"); // Set action type
     setCurrentNoteId(noteId);
     setIsDialogOpen(true);
   };
 
   const onUnarchive = (noteId) => {
     setCurrentAction(() => () => unarchiveNoteAction(noteId));
-    setCurrentActionType('unarchive'); // Set action type
+    setCurrentActionType("unarchive"); // Set action type
     setCurrentNoteId(noteId);
     setIsDialogOpen(true);
   };
@@ -154,11 +156,13 @@ const NoteContainer = ({ searchKeyword }) => {
               ))}
             </div>
           ) : (
-            <EmptyState message={
-              searchKeyword 
-                ? `Tidak ada catatan yang cocok dengan "${searchKeyword}"`
-                : "Tidak ada catatan aktif yang tersedia"
-            } />
+            <EmptyState
+              message={
+                searchKeyword
+                  ? `Tidak ada catatan yang cocok dengan "${searchKeyword}"`
+                  : "Tidak ada catatan aktif yang tersedia"
+              }
+            />
           )}
         </TabPanel>
 
@@ -183,16 +187,17 @@ const NoteContainer = ({ searchKeyword }) => {
               ))}
             </div>
           ) : (
-            <EmptyState message={
-              searchKeyword 
-                ? `Tidak ada catatan yang cocok dengan "${searchKeyword}"`
-                : "Tidak ada catatan yang diarsipkan"
-            } />
+            <EmptyState
+              message={
+                searchKeyword
+                  ? `Tidak ada catatan yang cocok dengan "${searchKeyword}"`
+                  : "Tidak ada catatan yang diarsipkan"
+              }
+            />
           )}
         </TabPanel>
       </Tabs>
 
-      {/* Confirmation Dialog */}
       <ConfirmationDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}

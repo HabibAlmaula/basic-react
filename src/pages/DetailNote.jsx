@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import { useParams } from "react-router-dom";
 import { getNote } from "../utils/network-data";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.bubble.css";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.bubble.css";
 import HeaderApp from "../components/HeaderApp";
 import NotFound from "./base/NotFound";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";

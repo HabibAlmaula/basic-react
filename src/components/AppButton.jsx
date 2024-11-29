@@ -30,4 +30,6 @@ AppButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   label: PropTypes.string,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
