@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/AuthProvider";
+import { useAuth } from "../providers/AuthProvider";
 import { useEffect } from "react";
 import { home } from "./routes";
 

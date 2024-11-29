@@ -1,4 +1,5 @@
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import PropTypes from "prop-types";
 
 const ConfirmationDialog = ({
   isOpen,
@@ -39,3 +40,11 @@ const ConfirmationDialog = ({
 };
 
 export default ConfirmationDialog;
+
+ConfirmationDialog.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
+};
