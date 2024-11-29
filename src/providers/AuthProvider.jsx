@@ -7,6 +7,7 @@ import {
 } from "../utils/network-data";
 import { home, login as loginRoute } from "../routes/routes";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const AuthContext = createContext(null);
 
@@ -65,6 +66,10 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useAuth = () => {

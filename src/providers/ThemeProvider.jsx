@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { IoIosPartlySunny } from "react-icons/io";
 import { FaMoon } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 const ThemeContext = createContext(null);
 
@@ -50,6 +51,10 @@ export const ThemeProvider = ({ children }) => {
       {children}
     </ThemeContext.Provider>
   );
+};
+
+ThemeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useTheme = () => {
