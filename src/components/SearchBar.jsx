@@ -24,7 +24,7 @@ class SearchBar extends Component {
     return (
       <div className="flex flex-row gap-2">
         <input
-          className="p-2 rounded-md min-w-[350px] mt-5 mb-2"
+          className="p-2 rounded-md min-w-[350px] mt-5 mb-2  bg-slate-50 border border-x-neutral-200"
           type="text"
           placeholder="Search notes"
           value={this.state.keyword}

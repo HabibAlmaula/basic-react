@@ -1,33 +1,38 @@
-import { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-export default function RichTextEditor({ value, onChange }) {
-
+export default function RichTextEditor({ value, onChange, readOnly = false }) {
   const handleOnChange = (content) => {
     onChange({ plainText: content });
   };
 
   const modules = {
     toolbar: [
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'align': [] }],
-      ['blockquote', 'code-block'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['link'],
-      ['clean']
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ align: [] }],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link"],
+      ["clean"],
     ],
   };
 
   const formats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike',
-    'align', 'list', 'bullet',
-    'blockquote', 'code-block',
-    'link'
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "align",
+    "list",
+    "bullet",
+    "blockquote",
+    "code-block",
+    "link",
   ];
 
   const customStyles = `
@@ -124,8 +129,8 @@ export default function RichTextEditor({ value, onChange }) {
   return (
     <div className="w-full grid grid-cols-1 gap-5 mb-10">
       <style>{customStyles}</style>
-      <div 
-        onDrop={(e) => e.preventDefault()} 
+      <div
+        onDrop={(e) => e.preventDefault()}
         className="bg-white rounded-lg border border-slate-200"
       >
         <ReactQuill
@@ -134,8 +139,9 @@ export default function RichTextEditor({ value, onChange }) {
           value={value}
           modules={modules}
           formats={formats}
-          bounds={'.app'}
-          placeholder={'Type something here...'}
+          bounds={".app"}
+          readOnly={readOnly}
+          placeholder={"Type something here..."}
         />
       </div>
     </div>
@@ -143,6 +149,6 @@ export default function RichTextEditor({ value, onChange }) {
 }
 
 RichTextEditor.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    };
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
