@@ -151,4 +151,5 @@ export default function RichTextEditor({ value, onChange, readOnly = false }) {
 RichTextEditor.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
 };

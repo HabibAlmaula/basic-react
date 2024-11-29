@@ -66,4 +66,5 @@ export default FormInputNote;
 
 FormInputNote.propTypes = {
   onSave: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };

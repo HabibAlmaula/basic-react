@@ -1,4 +1,3 @@
-// contexts/ThemeContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
 import { IoIosPartlySunny } from "react-icons/io";
 import { FaMoon } from "react-icons/fa";

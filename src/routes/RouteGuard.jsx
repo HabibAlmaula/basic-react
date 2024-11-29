@@ -1,4 +1,4 @@
-import { useAuth } from "../hooks/AuthProvider";
+import { useAuth } from "../providers/AuthProvider";
 import { login } from "./routes";
 import { Navigate, Outlet } from "react-router-dom";
 

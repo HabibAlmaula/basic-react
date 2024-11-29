@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../hooks/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import HeaderApp from "../../components/HeaderApp";
 

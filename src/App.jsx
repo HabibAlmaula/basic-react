@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/base/NotFound";
 import AddNote from "./pages/AddNote";
 import DetailNote from "./pages/DetailNote";
-import { AuthProvider } from "./hooks/AuthProvider";
+import { AuthProvider } from "./providers/AuthProvider";
 import { RouteGuard } from "./routes/RouteGuard";
 import {
   addNote,
@@ -22,7 +22,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { AppToast } from "./components/AppToast";
 import { AuthGuard } from "./routes/AuthGuard";
-import { ThemeProvider } from "./hooks/ThemeProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
 
 function App() {
   // Set the default locale to Indonesian
